@@ -143,30 +143,23 @@ module keyboard_case()
 
   // Top left to bottom right
 
+  // Top row
   screw_mount(54, 109);
-
   // screw_mount(139, 109);
-
   screw_mount(225, 109);
-
   screw_mount(305, 109);
-
   screw_mount(404, 109);
 
+  // Middle row
   screw_mount(81, 57.5);
-
   screw_mount(175.5, 57.5);
-
   screw_mount(412, 38);
 
+  // Bottom row
   screw_mount(22, 4);
-
   screw_mount(114, 4);
-
   screw_mount(212, 8);
-
   screw_mount(305, 10);
-
   screw_mount(384, 4);
 }
 
