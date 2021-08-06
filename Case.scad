@@ -1,7 +1,7 @@
 // All measurements in mm
 
-inner_length = 420.5;
-inner_width = 120.5;
+inner_length = 421;
+inner_width = 121;
 inner_height = 15;
 
 wall_thickness = 2;
@@ -144,19 +144,19 @@ module keyboard_case()
   // Top left to bottom right
 
   // Top row
-  screw_mount(54, 109);
+  screw_mount(54.5, 109.5);
   // screw_mount(139, 109);
   screw_mount(225, 109);
   screw_mount(305, 109);
   screw_mount(404, 109);
 
   // Middle row
-  screw_mount(81, 57.5);
+  screw_mount(82, 57.5);
   screw_mount(175.5, 57.5);
   screw_mount(412, 38);
 
   // Bottom row
-  screw_mount(22, 4);
+  screw_mount(22.2, 3.9);
   screw_mount(114, 4);
   screw_mount(212, 8);
   screw_mount(305, 10);
@@ -196,6 +196,6 @@ difference()
   keyboard_case();
   // cutout_test();
   // cutout_left();
-  // cutout_center();
-  // cutout_right();
+  cutout_center();
+  cutout_right();
 }
