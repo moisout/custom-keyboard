@@ -146,13 +146,13 @@ module keyboard_case()
   // Top row
   screw_mount(54.5, 109.5);
   // screw_mount(139, 109);
-  screw_mount(225, 109);
+  screw_mount(225.5, 109.5);
   screw_mount(305, 109);
   screw_mount(404, 109);
 
   // Middle row
-  screw_mount(82, 57.5);
-  screw_mount(175.5, 57.5);
+  screw_mount(82.5, 57.5);
+  screw_mount(161.5, 57.5);
   screw_mount(412, 38);
 
   // Bottom row
@@ -195,7 +195,7 @@ difference()
 {
   keyboard_case();
   // cutout_test();
-  // cutout_left();
-  cutout_center();
+  cutout_left();
+  // cutout_center();
   cutout_right();
 }
