@@ -6,8 +6,8 @@ inner_height = 15;
 
 wall_thickness = 2;
 
-outer_length = inner_length + wall_thickness * 2;
-outer_width = inner_width + wall_thickness * 2;
+outer_length = inner_length + (wall_thickness * 2);
+outer_width = inner_width + (wall_thickness * 2);
 outer_height = inner_height;
 
 module keyboard_case()
@@ -15,11 +15,34 @@ module keyboard_case()
   difference()
   {
     // Outer shell
-    $fs = 0.01;
-    minkowski()
+    hull()
     {
-      cube([ outer_length, outer_width, outer_height ], center = true);
-      cylinder(h = 0.1, r = 2);
+      o_le_h = outer_length / 2;
+      o_wi_h = outer_width / 2;
+      o_he_h = outer_height / 2;
+
+      slantedness = 10;
+
+      polyhedron(
+        points = [
+          [ -o_le_h, o_wi_h, o_he_h ],
+          [ o_le_h, o_wi_h, o_he_h ],
+          [ o_le_h, -o_wi_h, o_he_h ],
+          [ -o_le_h, -o_wi_h, o_he_h ],
+
+          [ -o_le_h, o_wi_h, -o_he_h - slantedness ],
+          [ o_le_h, o_wi_h, -o_he_h - slantedness ],
+          [ o_le_h, -o_wi_h, -o_he_h ],
+          [ -o_le_h, -o_wi_h, -o_he_h ]
+        ],
+        faces = [
+          [ 0, 1, 2, 3 ],
+          [ 0, 3, 4, 7 ],
+          [ 0, 1, 4, 5 ],
+          [ 1, 2, 5, 6 ],
+          [ 2, 3, 7, 6 ],
+          [ 4, 5, 6, 7 ]
+        ]);
     }
 
     // Outer shell cutout
@@ -145,7 +168,7 @@ module keyboard_case()
 
   // Top row
   screw_mount(54.5, 109.5);
-  // screw_mount(139, 109);
+  screw_mount(139, 109);
   screw_mount(225.5, 109.5);
   screw_mount(305, 109);
   screw_mount(404, 109);
@@ -165,13 +188,13 @@ module keyboard_case()
 
 module cutout_center()
 {
-  cube([ outer_length / 3, outer_width + 4, outer_height + 2 ], center = true);
+  cube([ outer_length / 3, outer_width + 4, outer_height + 20 ], center = true);
 }
 module cutout_left()
 {
   translate([ -(outer_length / 3) - 1, 0, 0 ])
   {
-    cube([ outer_length / 3 + 2.01, outer_width + 4, outer_height + 2 ],
+    cube([ outer_length / 3 + 2.01, outer_width + 4, outer_height + 20 ],
          center = true);
   }
 }
@@ -179,7 +202,7 @@ module cutout_right()
 {
   translate([ (outer_length / 3) + 1, 0, 0 ])
   {
-    cube([ outer_length / 3 + 2.01, outer_width + 4, outer_height + 2 ],
+    cube([ outer_length / 3 + 2.01, outer_width + 4, outer_height + 20 ],
          center = true);
   }
 }
@@ -187,7 +210,7 @@ module cutout_test()
 {
   rotate(45) translate([ (outer_length / 3) + 1, 0, 0 ])
   {
-    cube([ outer_length + 150, , outer_width * 10, outer_height + 2 ], ,
+    cube([ outer_length + 150, , outer_width * 10, outer_height + 20 ], ,
          center = true);
   }
 }
@@ -195,7 +218,7 @@ difference()
 {
   keyboard_case();
   // cutout_test();
-  cutout_left();
-  // cutout_center();
+  // cutout_left();
+  cutout_center();
   cutout_right();
 }

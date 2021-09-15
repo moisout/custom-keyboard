@@ -1,0 +1,14 @@
+{
+  "name": "custom-keyboard",
+  "version": "1.0.0",
+  "repository": "https://github.com/mauriceoegerli/custom-keyboard.git",
+  "author": "mauriceoegerli <maurice@oeger.li>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "nodemon --watch src --exec node lib/builder.js"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.12",
+    "scad-js": "^0.5.0"
+  }
+}
