@@ -219,6 +219,6 @@ difference()
   keyboard_case();
   // cutout_test();
   // cutout_left();
-  cutout_center();
-  cutout_right();
+  // cutout_center();
+  // cutout_right();
 }
