@@ -39,8 +39,10 @@ module replace_plate_part(x, y, w, h)
 }
 
 stabilizers = [
-  [plate_length - 20, 2.3, 16.9, 34],
-  [plate_length - 20, 40.45, 16.9, 34]
+  [plate_length - 20, 2.3, 16.9, 9.21],
+  [plate_length - 20, 27.1, 16.9, 9.21],
+  [plate_length - 20, 40.45, 16.9, 9.21],
+  [plate_length - 20, 65.2, 16.9, 9.21]
 ];
 
 module keyboard_plate()
@@ -110,7 +112,7 @@ module cutout_right()
 difference()
 {
   keyboard_plate();
-  // cutout_left();
-  // cutout_center();
+  cutout_left();
+  cutout_center();
   // cutout_right();
 }
