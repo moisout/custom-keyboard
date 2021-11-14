@@ -67,40 +67,41 @@ module replace_plate_part(x, y, w, h)
 
 // Top left to bottom right
 stabilizer_cutouts = [
-  // #1
+  // #1 Backspace, horizontal
+  [248.5, 77.15, 36, 15.063],
+
+  // #2 Enter, vertical
   [plate_length - 75.15, 1.1, 36, 15.063],
 
-  // #2
-  [plate_length - 75.15, 1.1, 36, 15.063],
-
-  // #3
+  // #3 RShift, horizontal
   [241.6, 20, 36, 15.063],
 
-  // #4
+  // #4 Numpad 0, horizontal
   [plate_length - 75.15, 1.1, 36, 15.063],
 
-  // #5
+  // #5 Numpad +, vertical
   [plate_length - 20, 40.45, 16.9, 34],
 
-  // #6
+  // #6 Numpad enter, vertical
   [plate_length - 20, 2.3, 16.9, 34],
 
   // Spacebar
-  [plate_length - 75.15, 1.1, 36, 15.063],
+  [75, 2.1, 12, 14],
+  [175.4, 2.1, 12, 14],
 ];
 
 stabilizers = [
   // #1 Backspace, horizontal
-  [plate_length - 74.2, 1.1, 9.21, 16.9],
-  [plate_length - 49.3, 1.1, 9.21, 16.9],
+  [249.75, 77.15, 9.21, 16.9],
+  [249.75 + 24.9, 77.15, 9.21, 16.9],
 
   // #2 Enter, vertical
   [plate_length - 74.2, 1.1, 9.21, 16.9],
   [plate_length - 49.3, 1.1, 9.21, 16.9],
 
   // #3 RShift, horizontal
-  [plate_length - 74.2, 1.1, 9.21, 16.9],
-  [plate_length - 49.3, 1.1, 9.21, 16.9],
+  [242.6, 20, 9.21, 16.9],
+  [242.6 + 24.9, 20, 9.21, 16.9],
 
   // #4 Numpad 0, horizontal
   [plate_length - 74.2, 1.1, 9.21, 16.9],
@@ -119,12 +120,34 @@ stabilizers = [
   [plate_length - 49.3, 1.1, 9.21, 16.9],
 ];
 
+module cutoff_far_left()
+{
+  translate([ - (plate_length / 3) * 2 + 1.5, 0, 0 ])
+  {
+    cube([ plate_length / 3 + 2.01, plate_width + 4, 20 ],
+         center = true);
+  }
+}
+
+module cutoff_bottom()
+{
+  translate([ 0, - plate_width - 0.5, 0 ])
+  {
+    cube([ plate_length + 2, plate_width + 4, 20 ],
+         center = true);
+  }
+}
+
 module keyboard_plate()
 {
   difference()
   {
     translate([- (plate_length / 2), - (plate_width / 2), 1])
     {
+      translate([0, plate_width - 5.3, 0])
+      {
+        cube([ plate_length, 3.5, plate_height ], center = false);
+      }
       difference()
       {
         linear_extrude(height = plate_height, center = false, convexity = 10)
@@ -152,6 +175,9 @@ module keyboard_plate()
       stab_values = stabilizer_cutouts[i];
       replace_plate_cutout(stab_values[0], stab_values[1], stab_values[2], stab_values[3]);
     }
+
+    cutoff_far_left();
+    cutoff_bottom();
   }
 
   for (i=[0:(len(stabilizers)-1)]) {
@@ -162,7 +188,10 @@ module keyboard_plate()
 
 module cutout_center()
 {
-  cube([ plate_length / 1.22, plate_width + 4, 20 ], center = true);
+  translate([ 50, 0, 0 ])
+  {
+    cube([ plate_length / 3, plate_width + 4, 20 ], center = true);
+  }
 }
 
 module cutout_left()
@@ -187,6 +216,6 @@ difference()
 {
   keyboard_plate();
   // cutout_left();
-  // cutout_center();
-  // cutout_right();
+  cutout_center();
+  cutout_right();
 }
