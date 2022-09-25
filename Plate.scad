@@ -67,16 +67,17 @@ module replace_plate_part(x, y, w, h)
 
 // Top left to bottom right
 stabilizer_cutouts = [
-  // #1 Backspace, horizontal
+  // // #1 Backspace, horizontal
   [248.5, 77.15, 36, 15.063],
 
-  // #2 Enter, vertical
-  [plate_length - 75.15, 1.1, 36, 15.063],
+  // // #2 Enter, vertical
+  // [plate_length - 75.15, 1.1, 36, 15.063],
 
   // #3 RShift, horizontal
   [241.6, 20, 36, 15.063],
 
   // #4 Numpad 0, horizontal
+  [plate_length - 75.15, 1.1, 36, 15.063],
   [plate_length - 75.15, 1.1, 36, 15.063],
 
   // #5 Numpad +, vertical
@@ -88,6 +89,9 @@ stabilizer_cutouts = [
   // Spacebar
   [75, 2.1, 12, 14],
   [175.4, 2.1, 12, 14],
+  
+  // Spacebar stabilizer bar
+  [82, 0, 97, 4],
 ];
 
 stabilizers = [
@@ -96,16 +100,16 @@ stabilizers = [
   [249.75 + 24.9, 77.15, 9.21, 16.9],
 
   // #2 Enter, vertical
-  [plate_length - 74.2, 1.1, 9.21, 16.9],
-  [plate_length - 49.3, 1.1, 9.21, 16.9],
+  // [plate_length - 74.2, 1.1, 9.21, 16.9],
+  // [plate_length - 49.3, 1.1, 9.21, 16.9],
 
   // #3 RShift, horizontal
   [242.6, 20, 9.21, 16.9],
   [242.6 + 24.9, 20, 9.21, 16.9],
 
   // #4 Numpad 0, horizontal
-  [plate_length - 74.2, 1.1, 9.21, 16.9],
-  [plate_length - 49.3, 1.1, 9.21, 16.9],
+  [plate_length - 74.2, 1.5, 9.21, 16.9],
+  [plate_length - 49.3, 1.5, 9.21, 16.9],
 
   // #5 Numpad +, vertical
   [plate_length - 20, 40.45, 16.9, 9.21],
@@ -116,8 +120,8 @@ stabilizers = [
   [plate_length - 20, 27.1, 16.9, 9.21],
 
   // Spacebar
-  [plate_length - 74.2, 1.1, 9.21, 16.9],
-  [plate_length - 49.3, 1.1, 9.21, 16.9],
+  [75, 1.5, 15, 16.9],
+  [173, 1.5, 15, 16.9],
 ];
 
 module cutoff_far_left()
@@ -180,6 +184,14 @@ module keyboard_plate()
     cutoff_bottom();
   }
 
+  // Fill for spacebar left
+  translate([-128.5, -56, 1])
+  cube([ 37.35, 10, plate_height ], center = false);
+
+  // Fill for spacebar right
+  translate([-75.45, -56, 1])
+  cube([ 37.5, 10, plate_height ], center = false);
+
   for (i=[0:(len(stabilizers)-1)]) {
     stab_values = stabilizers[i];
     replace_plate_part(stab_values[0], stab_values[1], stab_values[2], stab_values[3]);
@@ -216,6 +228,6 @@ difference()
 {
   keyboard_plate();
   // cutout_left();
-  cutout_center();
-  cutout_right();
+  // cutout_center();
+  // cutout_right();
 }
